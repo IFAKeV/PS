@@ -1,0 +1,4 @@
+[
+  {"name": "IT-Test", "csv": "gruppe1.csv", "template": "it-check.html"},
+  {"name": "Webmail", "csv": "gruppe2.csv", "template": "webmail-login.html"}
+]
