@@ -77,12 +77,15 @@ Beispiel:
 
 ## SMTP-Konfiguration (`config.php`)
 
-    define('SMTP_HOST', 'smtp.gmail.com');
-    define('SMTP_USER', 'deineadresse@gmail.com');
-    define('SMTP_PASS', 'app-passwort');
-    define('SMTP_FROM', 'deineadresse@gmail.com');
-    define('SMTP_FROM_NAME', 'IT-Support');
-    define('SMTP_PORT', 587);
+return [
+    'smtp_host' => 'smtp.gmail.com',
+    'smtp_port' => 587,
+    'smtp_user' => 'your@gmail.com',
+    'smtp_pass' => 'password',
+    'smtp_secure' => 'tls',
+    'from_email' => 'your@gmail.com',
+    'from_name' => 'Admin'
+];
 
 ## Hinweise
 
