@@ -20,6 +20,7 @@ Diese Plattform dient zur internen Durchführung von Phishing-Simulationen zu Sc
     /campaigns.json        → Definition der Kampagnen
     /data/                 → CSV-Dateien mit Empfängerdaten
     /templates/            → HTML-E-Mail-Templates mit Platzhaltern
+    /templates/*-form.html → Login-Formulare der Kampagnen
     /logs/                 → Logdateien im JSONL-Format
     /phpmailer/            → PHPMailer-Bibliothek
 
@@ -28,11 +29,16 @@ Diese Plattform dient zur internen Durchführung von Phishing-Simulationen zu Sc
 ### campaigns.json
 
     [
-      { "name": "IT-Test", "csv": "gruppe1.csv", "template": "it-check.html" },
-      { "name": "Webmail", "csv": "gruppe2.csv", "template": "webmail-login.html" }
+      { "name": "IT-Test", "csv": "gruppe1.csv",
+        "template": "it-check.html",
+        "form": "it-check-form.html" },
+      { "name": "Webmail", "csv": "gruppe2.csv",
+        "template": "webmail-login.html",
+        "form": "webmail-login-form.html" }
     ]
 
-Die CSV-Dateien liegen in `/data/`, die Templates in `/templates/`.
+Die CSV-Dateien liegen in `/data/`,
+die Templates und Formulare in `/templates/`.
 
 ### CSV-Format
 
