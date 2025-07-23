@@ -1,4 +1,4 @@
 [
-  {"name": "IT-Test", "csv": "gruppe1.csv", "email_template": "it-test.html", "login_form": "it-test-form.html"},
-  {"name": "Webmail", "csv": "gruppe2.csv", "email_template": "webmail.html", "login_form": "webmail-form.html"}
+  {"name": "IT-Test", "csv": "gruppe1.csv", "email_template": "it-test.html", "login_form": "it-test-form.html", "subject": "Überprüfung Ihrer IT-Zugangsdaten"},
+  {"name": "Webmail", "csv": "gruppe2.csv", "email_template": "webmail.html", "login_form": "webmail-form.html", "subject": "Bestätigung Ihres Webmail-Kontos"}
 ]
