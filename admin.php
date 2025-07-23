@@ -20,7 +20,7 @@ if (isset($_GET['send'])) {
     $tpl = file_get_contents($tplPath);
     $handle = fopen($csvPath,'r');
     $header = fgetcsv($handle, 0, ',', '"', '\\');
-    $logFile = __DIR__.'/logs/'.safeName($camp['name']).'.jsonl';
+    $logFile = __DIR__.'/logs/'.safeName($camp['name']).'-'.date('Ymd-His').'.jsonl';
     $success = 0;
     $total = 0;
     $errors = [];

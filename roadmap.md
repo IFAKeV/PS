@@ -18,7 +18,7 @@ Diese Datei dokumentiert, welche Funktionen laut `README.md` vorhanden sein soll
 ## Offene Punkte
 
 1. **Auswertungen pro Kampage**
-   - Auswertungen sollen pro gesendeter Kampagne erfolgen. Das muss irgendwie mit Kampagnenname und Zeitstempel sichergestellt werden. Aktuell wird alles in eine kampagnenname.jsonl Datei geschrieben. Wobei .jsonl fast wie ein Tippfehler aussieht. 
+   - *Erledigt:* Logdateien erhalten jetzt einen Zeitstempel (Format `kampagnenname-YYYYMMDD-HHMMSS.jsonl`). Dadurch existiert für jeden Versand eine eigene Datei.
 3. **Absicherung von `admin.php`**
    - Gemäß README sollte der Zugriff geschützt werden (z.B. per `.htaccess`). Dies fehlt aktuell komplett im Repository.
    - Umsetzung erfolgt, wenn alle Funktionen implementiert sind und erfolgreiche Testläuft erfolgt sind.

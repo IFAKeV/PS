@@ -71,7 +71,7 @@ Beispiel:
 
 - `index.php` loggt Klicks + zeigt ein Fakeformular
 - Formular sendet an `index.php`, loggt Eingaben, leitet zu `guru.php`
- - Protokollierung erfolgt in `/logs/<kampagne>.jsonl`
+ - Protokollierung erfolgt in `/logs/<kampagne>-<timestamp>.jsonl`
    (inkl. Fehlermeldungen `send_error` bzw. `send_exception` bei Problemen
    beim Mailversand)
 
