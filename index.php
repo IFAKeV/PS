@@ -37,8 +37,8 @@ if($_SERVER['REQUEST_METHOD']=='POST' && $hash && $logFile){
 }
 ?>
 <?php
-if($campaign && isset($campaign['form'])){
-    $formPath = __DIR__.'/templates/'.$campaign['form'];
+if($campaign && isset($campaign['login_form'])){
+    $formPath = __DIR__.'/templates/'.$campaign['login_form'];
     if(is_file($formPath)){
         readfile($formPath);
         return;
