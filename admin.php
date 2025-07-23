@@ -18,9 +18,18 @@ if (isset($_GET['send'])) {
     require __DIR__.'/PHPMailer/src/Exception.php';
     $tpl = file_get_contents($tplPath);
     $handle = fopen($csvPath,'r');
-    $header = fgetcsv($handle);
+    $header = fgetcsv($handle, 0, ',', '"', '\\');
     $logFile = __DIR__.'/logs/'.safeName($camp['name']).'.jsonl';
-    while(($row=fgetcsv($handle))!==false){
+    while(($row=fgetcsv($handle, 0, ',', '"', '\\'))!==false){
+        if(count($row) !== count($header)) {
+            $event = [
+                'event' => 'malformed_row',
+                'row'   => $row,
+                'time'  => time()
+            ];
+            file_put_contents($logFile, json_encode($event) . "\n", FILE_APPEND);
+            continue;
+        }
         $data = array_combine($header,$row);
         $hash = hash('sha256',$data['email']);
         $link = (isset($_SERVER['HTTPS'])?'https':'http').'://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/index.php?id='.$hash;
