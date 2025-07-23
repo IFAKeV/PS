@@ -20,6 +20,9 @@ if (isset($_GET['send'])) {
     $handle = fopen($csvPath,'r');
     $header = fgetcsv($handle, 0, ',', '"', '\\');
     $logFile = __DIR__.'/logs/'.safeName($camp['name']).'.jsonl';
+    $success = 0;
+    $total = 0;
+    $errors = [];
     while(($row=fgetcsv($handle, 0, ',', '"', '\\'))!==false){
         if(count($row) !== count($header)) {
             $event = [
@@ -52,6 +55,7 @@ if (isset($_GET['send'])) {
         $mail->Subject = $camp['name'];
         $mail->Body = $body;
         try {
+            $total++;
             if($mail->send()){
                 $event = [
                     'event' => 'sent',
@@ -62,6 +66,7 @@ if (isset($_GET['send'])) {
                     'time'  => time()
                 ];
                 file_put_contents($logFile, json_encode($event) . "\n", FILE_APPEND);
+                $success++;
             } else {
                 $event = [
                     'event' => 'send_error',
@@ -70,6 +75,7 @@ if (isset($_GET['send'])) {
                     'time'  => time()
                 ];
                 file_put_contents($logFile, json_encode($event) . "\n", FILE_APPEND);
+                $errors[] = $mail->ErrorInfo;
             }
         } catch(Exception $e) {
             $event = [
@@ -79,11 +85,20 @@ if (isset($_GET['send'])) {
                 'time'  => time()
             ];
             file_put_contents($logFile, json_encode($event) . "\n", FILE_APPEND);
+            $errors[] = $e->getMessage();
         }
         sleep(10);
     }
     fclose($handle);
-    echo "Versand abgeschlossen";
+    echo "<h2>Versand abgeschlossen</h2>";
+    echo "<p>Erfolgreich versendet: {$success} von {$total}</p>";
+    if (!empty($errors)) {
+        echo "<p>Fehler beim Versand:</p><ul>";
+        foreach ($errors as $msg) {
+            echo '<li>'.htmlspecialchars($msg).'</li>';
+        }
+        echo '</ul>';
+    }
     exit;
 }
 ?>
