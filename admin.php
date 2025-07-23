@@ -11,7 +11,7 @@ if (isset($_GET['send'])) {
     if (!isset($campaigns[$id])) die('Unknown campaign');
     $camp = $campaigns[$id];
     $csvPath = __DIR__.'/data/'.$camp['csv'];
-    $tplPath = __DIR__.'/templates/'.$camp['template'];
+    $tplPath = __DIR__.'/templates/'.$camp['email_template'];
     if (!file_exists($csvPath) || !file_exists($tplPath)) die('Missing files');
     require __DIR__.'/PHPMailer/src/PHPMailer.php';
     require __DIR__.'/PHPMailer/src/SMTP.php';
