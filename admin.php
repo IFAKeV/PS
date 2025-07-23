@@ -6,6 +6,7 @@ function safeName($name) {
     return preg_replace('/[^a-zA-Z0-9_-]/','_', $name);
 }
 
+$sendReport = '';
 if (isset($_GET['send'])) {
     $id = (int)$_GET['send'];
     if (!isset($campaigns[$id])) die('Unknown campaign');
@@ -90,6 +91,7 @@ if (isset($_GET['send'])) {
         sleep(10);
     }
     fclose($handle);
+    ob_start();
     echo "<h2>Versand abgeschlossen</h2>";
     echo "<p>Erfolgreich versendet: {$success} von {$total}</p>";
     if (!empty($errors)) {
@@ -99,12 +101,13 @@ if (isset($_GET['send'])) {
         }
         echo '</ul>';
     }
-    exit;
+    $sendReport = ob_get_clean();
 }
 ?>
 <!DOCTYPE html>
 <html><body>
 <h1>Phishing Simulation Admin</h1>
+<?php if($sendReport) echo $sendReport; ?>
 <ul>
 <?php foreach($campaigns as $i=>$c): ?>
 <li><?php echo htmlspecialchars($c['name']); ?> - <a href="?send=<?php echo $i; ?>">Versand starten</a></li>
@@ -114,7 +117,28 @@ if (isset($_GET['send'])) {
 <script>
 function load(){
     fetch('stats.php').then(r=>r.json()).then(d=>{
-        document.getElementById('stats').innerText=JSON.stringify(d,null,2);
+        let html='';
+        Object.keys(d).forEach(name=>{
+            const s=d[name];
+            html+=`<h3>${name}</h3>`+
+                  `<p>Versendet: ${s.total_sent} | `+
+                  `Geklickt: ${s.clicked} | `+
+                  `Abgesendet: ${s.submitted} | `+
+                  `Fehler: ${s.errors}</p>`;
+            if(s.entries.length){
+                html+='<ul>';
+                s.entries.forEach(e=>{
+                    let status=[];
+                    if(e.click_time) status.push('geklickt');
+                    if(e.submit_time) status.push('Form gesendet');
+                    html+=`<li>${e.email}`;
+                    if(status.length) html+=` - ${status.join(', ')}`;
+                    html+='</li>';
+                });
+                html+='</ul>';
+            }
+        });
+        document.getElementById('stats').innerHTML=html;
     });
 }
 setInterval(load,5000);load();
