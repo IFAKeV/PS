@@ -5,7 +5,7 @@ foreach($logs as $file){
     $name = basename($file,'.jsonl');
     $lines = file($file,FILE_IGNORE_NEW_LINES);
     $hashMap = [];
-    $stats = ['total_sent'=>0,'clicked'=>0,'submitted'=>0,'last'=>0,'entries'=>[]];
+    $stats = ['total_sent'=>0,'clicked'=>0,'submitted'=>0,'errors'=>0,'last'=>0,'entries'=>[]];
     foreach($lines as $line){
         $d = json_decode($line,true);
         if(!$d) continue;
@@ -13,6 +13,9 @@ foreach($logs as $file){
         if($d['event']=='sent'){
             $stats['total_sent']++;
             $hashMap[$d['hash']] = ['email'=>$d['email']];
+        }
+        if($d['event']=='send_error' || $d['event']=='send_exception'){
+            $stats['errors']++;
         }
         if($d['event']=='clicked'){
             $stats['clicked']++;

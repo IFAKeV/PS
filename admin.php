@@ -51,13 +51,31 @@ if (isset($_GET['send'])) {
         $mail->isHTML(true);
         $mail->Subject = $camp['name'];
         $mail->Body = $body;
-        if($mail->send()){
+        try {
+            if($mail->send()){
+                $event = [
+                    'event' => 'sent',
+                    'email' => $data['email'],
+                    'first' => $data['vorname'],
+                    'last'  => $data['nachname'],
+                    'hash'  => $hash,
+                    'time'  => time()
+                ];
+                file_put_contents($logFile, json_encode($event) . "\n", FILE_APPEND);
+            } else {
+                $event = [
+                    'event' => 'send_error',
+                    'email' => $data['email'],
+                    'error' => $mail->ErrorInfo,
+                    'time'  => time()
+                ];
+                file_put_contents($logFile, json_encode($event) . "\n", FILE_APPEND);
+            }
+        } catch(Exception $e) {
             $event = [
-                'event' => 'sent',
+                'event' => 'send_exception',
                 'email' => $data['email'],
-                'first' => $data['vorname'],
-                'last'  => $data['nachname'],
-                'hash'  => $hash,
+                'error' => $e->getMessage(),
                 'time'  => time()
             ];
             file_put_contents($logFile, json_encode($event) . "\n", FILE_APPEND);
