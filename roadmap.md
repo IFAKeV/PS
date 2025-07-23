@@ -17,17 +17,18 @@ Diese Datei dokumentiert, welche Funktionen laut `README.md` vorhanden sein soll
 
 ## Offene Punkte
 
-1. **Logverzeichnis bereitstellen**
-   - Verzeichnis `logs/` anlegen und bei Bedarf mit `.gitkeep` versionieren (bereits umgesetzt).
-2. **Absicherung von `admin.php`**
+1. **Auswertungen pro Kampage**
+   - Auswertungen sollen pro gesendeter Kampagne erfolgen. Das muss irgendwie mit Kampagnenname und Zeitstempel sichergestellt werden. Aktuell wird alles in eine kampagnenname.jsonl Datei geschrieben. Wobei .jsonl fast wie ein Tippfehler aussieht. 
+3. **Absicherung von `admin.php`**
    - Gemäß README sollte der Zugriff geschützt werden (z.B. per `.htaccess`). Dies fehlt aktuell komplett im Repository.
    - Umsetzung erfolgt, wenn alle Funktionen implementiert sind und erfolgreiche Testläuft erfolgt sind.
-3. **Fehlerbehandlung verbessern**
+4. **Fehlerbehandlung verbessern**
    - Wenn Dateien (CSV/Template) fehlen oder das Logverzeichnis nicht beschreibbar ist, sollte eine aussagekrätige Fehlermeldung erscheinen.
-4. **Schützen sensibler Daten**
+5. **Schützen sensibler Daten**
    - Logdateien sollten nicht öffentlich zugänglich sein und gegebenenfalls in `.gitignore` aufgenommen werden.
    - Umsetzung erfolgt, wenn alle Funktionen implementiert sind und erfolgreiche Testläuft erfolgt sind.
-5. **Optische Aufbereitung des Dashboards**
+6. **Optische Aufbereitung des Dashboards**
    - Aktuell werden die Statistiken als JSON ausgegeben. Eine bessere Darstellung könnte die Benutzung erleichtern.
+7. **Variablen in den Formular-Templates** um die person, welche schon auf den Link geklickt hat persönlich zu begrüßen. In der Hoffnung die Hemmschwelle zu senken auch noch ihr Passwort einzutragen.
 
 Weitere Schritte können sich aus neuen Anforderungen ergeben. Diese Roadmap dient als Grundlage, die offenen Punkte systematisch abzuarbeiten.
