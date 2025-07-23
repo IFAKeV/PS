@@ -53,7 +53,7 @@ if (isset($_GET['send'])) {
         $mail->setFrom($cfg['from_email'],$cfg['from_name']);
         $mail->addAddress($data['email']);
         $mail->isHTML(true);
-        $mail->Subject = $camp['name'];
+        $mail->Subject = $camp['subject'] ?? $camp['name'];
         $mail->Body = $body;
         try {
             $total++;

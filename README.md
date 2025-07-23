@@ -31,17 +31,20 @@ Diese Plattform dient zur internen Durchführung von Phishing-Simulationen zu Sc
     [
       { "name": "IT-Test", "csv": "gruppe1.csv",
         "email_template": "it-check.html",
-        "login_form": "it-check-form.html" },
+        "login_form": "it-check-form.html",
+        "subject": "Überprüfung Ihrer IT-Zugangsdaten" },
       { "name": "Webmail", "csv": "gruppe2.csv",
         "email_template": "webmail-login.html",
-        "login_form": "webmail-login-form.html" }
+        "login_form": "webmail-login-form.html",
+        "subject": "Bestätigung Ihres Webmail-Kontos" }
     ]
 
 Die CSV-Dateien liegen in `/data/`,
 die Templates und Formulare in `/templates/`.
 
 Die Felder `email_template` und `login_form` verweisen jeweils auf die
-HTML-Dateien in diesem Verzeichnis.
+HTML-Dateien in diesem Verzeichnis. Mit `subject` kann der Betreff der
+versendeten E-Mail festgelegt werden.
 
 ### CSV-Format
 
