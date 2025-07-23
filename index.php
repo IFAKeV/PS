@@ -14,6 +14,7 @@ function findLogFile($hash){
 function findCampaign($logFile){
     if(!$logFile) return null;
     $name = basename($logFile, '.jsonl');
+    $name = preg_replace('/-\d{8}-\d{6}$/', '', $name);
     $campaigns = json_decode(file_get_contents(__DIR__.'/campaigns.json'), true);
     foreach($campaigns as $c){
         $safe = preg_replace('/[^a-zA-Z0-9_-]/','_', $c['name']);
