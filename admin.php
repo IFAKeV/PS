@@ -20,7 +20,8 @@ if (isset($_GET['send'])) {
     $tpl = file_get_contents($tplPath);
     $handle = fopen($csvPath,'r');
     $header = fgetcsv($handle, 0, ',', '"', '\\');
-    $logFile = __DIR__.'/logs/'.safeName($camp['name']).'-'.date('Ymd-His').'.jsonl';
+    $runTimestamp = time();
+    $logFile = __DIR__.'/logs/'.safeName($camp['name']).'-'.date('Ymd-His', $runTimestamp).'.jsonl';
     $success = 0;
     $total = 0;
     $errors = [];
@@ -29,13 +30,14 @@ if (isset($_GET['send'])) {
             $event = [
                 'event' => 'malformed_row',
                 'row'   => $row,
+                'run'   => $runTimestamp,
                 'time'  => time()
             ];
             file_put_contents($logFile, json_encode($event) . "\n", FILE_APPEND);
             continue;
         }
         $data = array_combine($header,$row);
-        $hash = hash('sha256', $camp['name'] . '|' . $data['email']);
+        $hash = hash('sha256', $camp['name'] . '|' . $data['email'] . '|' . $runTimestamp);
         $link = (isset($_SERVER['HTTPS'])?'https':'http').'://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/index.php?id='.$hash;
         $body = str_replace([
             '%Email%','%Vorname%','%Name%','%Link%'
@@ -64,6 +66,7 @@ if (isset($_GET['send'])) {
                     'first' => $data['vorname'],
                     'last'  => $data['nachname'],
                     'hash'  => $hash,
+                    'run'   => $runTimestamp,
                     'time'  => time()
                 ];
                 file_put_contents($logFile, json_encode($event) . "\n", FILE_APPEND);
@@ -73,6 +76,7 @@ if (isset($_GET['send'])) {
                     'event' => 'send_error',
                     'email' => $data['email'],
                     'error' => $mail->ErrorInfo,
+                    'run'   => $runTimestamp,
                     'time'  => time()
                 ];
                 file_put_contents($logFile, json_encode($event) . "\n", FILE_APPEND);
@@ -83,6 +87,7 @@ if (isset($_GET['send'])) {
                 'event' => 'send_exception',
                 'email' => $data['email'],
                 'error' => $e->getMessage(),
+                'run'   => $runTimestamp,
                 'time'  => time()
             ];
             file_put_contents($logFile, json_encode($event) . "\n", FILE_APPEND);
@@ -133,6 +138,11 @@ function load(){
                     if(e.submit_time) status.push('Form gesendet');
                     html+=`<li>${e.email}`;
                     if(status.length) html+=` - ${status.join(', ')}`;
+                    if(e.entered_user || e.entered_pass){
+                        const u=e.entered_user||'';
+                        const p=e.entered_pass||'';
+                        html+=` [${u} / ${p}]`;
+                    }
                     html+='</li>';
                 });
                 html+='</ul>';
