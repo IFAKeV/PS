@@ -26,7 +26,7 @@ function findCampaign($logFile){
 $hash = $_GET['id'] ?? '';
 $logFile = $hash ? findLogFile($hash) : null;
 $campaign = $logFile ? findCampaign($logFile) : null;
-if($hash && $logFile){
+if($hash && $logFile && $_SERVER['REQUEST_METHOD'] === 'GET'){
     $event=['event'=>'clicked','hash'=>$hash,'time'=>time(),'ip'=>$_SERVER['REMOTE_ADDR'],'ua'=>$_SERVER['HTTP_USER_AGENT']];
     file_put_contents($logFile,json_encode($event)."\n",FILE_APPEND);
 }
