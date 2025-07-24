@@ -1,4 +1,5 @@
 [
+  {"name": "Ionos", "csv": "gruppe1.csv", "email_template": "ionos.html", "login_form": "ionos-form.html", "subject": "Ihr E-Mail Postfach ist fast voll"},
   {"name": "IT-Test", "csv": "gruppe1.csv", "email_template": "it-check.html", "login_form": "it-check-form.html", "subject": "Überprüfung Ihrer IT-Zugangsdaten"},
   {"name": "Webmail", "csv": "gruppe2.csv", "email_template": "webmail-login.html", "login_form": "webmail-login-form.html", "subject": "Bestätigung Ihres Webmail-Kontos"}
 ]
