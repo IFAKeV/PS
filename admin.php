@@ -35,7 +35,7 @@ if (isset($_GET['send'])) {
             continue;
         }
         $data = array_combine($header,$row);
-        $hash = hash('sha256',$data['email']);
+        $hash = hash('sha256', $camp['name'] . '|' . $data['email']);
         $link = (isset($_SERVER['HTTPS'])?'https':'http').'://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/index.php?id='.$hash;
         $body = str_replace([
             '%Email%','%Vorname%','%Name%','%Link%'
