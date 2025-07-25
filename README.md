@@ -1,6 +1,8 @@
-# Phishing-Simulationsplattform (Plain PHP)
-
-Diese Plattform dient zur internen Durchführung von Phishing-Simulationen zu Schulungszwecken. Sie basiert auf PHP ohne Frameworks, benötigt keine Datenbankserver und kann auf einfachem Shared Hosting betrieben werden.
+# offensives Security-Training ISO 27001
+Code zu Schulungszwecken. 
+- PHP ohne Frameworks
+- benötigt keine Datenbankserver
+- kann auf einfachem Shared Hosting betrieben werden
 
 ## Voraussetzungen
 
@@ -29,6 +31,7 @@ Diese Plattform dient zur internen Durchführung von Phishing-Simulationen zu Sc
 ### campaigns.json
 
     [
+      {"name": "Ionos", "csv": "gruppe1.csv", "email_template": "ionos.html", "login_form": "ionos-form.html", "subject": "Ihr E-Mail Postfach ist fast voll"},
       { "name": "IT-Test", "csv": "gruppe1.csv",
         "email_template": "it-check.html",
         "login_form": "it-check-form.html",
@@ -53,6 +56,7 @@ versendeten E-Mail festgelegt werden.
 
 ## E-Mail-Template
 
+Verwendete Variablen zur Personalisierung
 - %Email%
 - %Vorname%
 - %Name%
@@ -66,7 +70,7 @@ Beispiel:
 
 ## Ablauf
 
-1. Empfängerliste und Template per FTP hochladen
+1. Empfängerlisten und Templates extern bearbeiten per FTP hochladen
 2. Kampagne in `campaigns.json` definieren
 3. `admin.php` aufrufen und Versand starten
 
@@ -99,5 +103,5 @@ Beispiel:
 ## Hinweise
 
 - App-Passwort erforderlich bei Gmail
-- Zugriff auf `admin.php` absichern (z. B. .htaccess)
+- Zugriff auf `admin.php` absichern für Produktivbetrieb (z. B. .htaccess)
 - Keine echten Passwörter verwenden
