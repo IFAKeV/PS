@@ -12,21 +12,23 @@ foreach($logs as $file){
         $stats['last'] = max($stats['last'],$d['time']);
         if($d['event']=='sent'){
             $stats['total_sent']++;
-            $hashMap[$d['hash']] = ['email'=>$d['email']];
+            $hashMap[$d['hash']] = ['email'=>$d['email'], 'clicks'=>[], 'submissions'=>[]];
         }
         if($d['event']=='send_error' || $d['event']=='send_exception'){
             $stats['errors']++;
         }
         if($d['event']=='clicked'){
             $stats['clicked']++;
-            if(isset($hashMap[$d['hash']])) $hashMap[$d['hash']]['click_time']=$d['time'];
+            if(isset($hashMap[$d['hash']])) $hashMap[$d['hash']]['clicks'][]=$d['time'];
         }
         if($d['event']=='submitted'){
             $stats['submitted']++;
             if(isset($hashMap[$d['hash']])) {
-                $hashMap[$d['hash']]['submit_time']=$d['time'];
-                $hashMap[$d['hash']]['entered_user']=$d['user'];
-                $hashMap[$d['hash']]['entered_pass']=$d['pass'];
+                $hashMap[$d['hash']]['submissions'][]=[
+                    'time'=>$d['time'],
+                    'user'=>$d['user'],
+                    'pass'=>$d['pass']
+                ];
             }
         }
     }
