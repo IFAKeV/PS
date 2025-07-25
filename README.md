@@ -81,7 +81,8 @@ Beispiel:
 ## Live-Dashboard
 
 - `admin.php` lädt alle 5 Sekunden Daten aus `stats.php`
-- Anzeige: versendet / geklickt / abgesendet + Details
+ - Anzeige: versendet / geklickt / abgesendet + Details
+ - Mehrfache Klicks und Formularsendungen werden gezählt und samt eingegebener Daten aufgeführt
 
 ## SMTP-Konfiguration (`config.php`)
 

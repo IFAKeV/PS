@@ -134,14 +134,20 @@ function load(){
                 html+='<ul>';
                 s.entries.forEach(e=>{
                     let status=[];
-                    if(e.click_time) status.push('geklickt');
-                    if(e.submit_time) status.push('Form gesendet');
+                    if(e.clicks && e.clicks.length){
+                        status.push(e.clicks.length>1?`${e.clicks.length}x geklickt`:'geklickt');
+                    }
+                    if(e.submissions && e.submissions.length){
+                        status.push(e.submissions.length>1?`${e.submissions.length}x Form gesendet`:'Form gesendet');
+                    }
                     html+=`<li>${e.email}`;
                     if(status.length) html+=` - ${status.join(', ')}`;
-                    if(e.entered_user || e.entered_pass){
-                        const u=e.entered_user||'';
-                        const p=e.entered_pass||'';
-                        html+=` [${u} / ${p}]`;
+                    if(e.submissions && e.submissions.length){
+                        e.submissions.forEach(su=>{
+                            const u=su.user||'';
+                            const p=su.pass||'';
+                            html+=` [${u} / ${p}]`;
+                        });
                     }
                     html+='</li>';
                 });
