@@ -1,6 +1,9 @@
-# Phishing-Simulationsplattform (Plain PHP)
+# Ködermail-Simulationsplattform
 
-Diese Plattform dient zur internen Durchführung von Phishing-Simulationen zu Schulungszwecken. Sie basiert auf PHP ohne Frameworks, benötigt keine Datenbankserver und kann auf einfachem Shared Hosting betrieben werden.
+Diese Plattform versendet zu Schulungszwecken Nachrichten, die darauf abzielen, Empfängerinnen zur Preisgabe sensibler Informationen oder zum Klick auf manipulierte Inhalte zu bewegen – meist unter Vorspiegelung vertrauenswürdiger Absender. Sie ist per Design nicht geeignet solche Nachrichten zu tatsächlichen Schadzwecken zu verbreiten.
+Sie dient - kombiniert mit Schulungen und Aufkärungsvideos - zur Risikosensibilisierung und soll das Sicherheitsbewusstsein und die Sicherheitskompetenz erhöhen
+
+Sie basiert auf PHP ohne Frameworks, benötigt keine Datenbankserver und kann auf einfachem Shared Hosting betrieben werden.
 
 ## Voraussetzungen
 
@@ -98,6 +101,8 @@ Beispiel:
 
 ## Hinweise
 
-- App-Passwort erforderlich bei Gmail
-- Zugriff auf `admin.php` absichern (z. B. .htaccess)
-- Keine echten Passwörter verwenden
+- App-Passwort erforderlich bei Gmail.
+- Zugriff auf `admin.php` absichern (z. B. .htaccess).
+- Keine echten Passwörter verwenden.
+- Login-Formulare kann man sich über das SingleFile-Plugin für Firefox "leihen".
+- Es spart zudem Arbeit vorhandene Mails als Template zu nutzen. Thunderbird kann Mails im Entwurfsstatus als HTML abspeichern.
